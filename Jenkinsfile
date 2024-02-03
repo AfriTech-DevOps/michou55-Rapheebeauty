@@ -1,4 +1,5 @@
 pipeline {
+    agent any 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('2ff349e1-7010-4200-99a8-ac17d7c56046')
     }
