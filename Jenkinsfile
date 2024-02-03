@@ -35,19 +35,29 @@ pipeline {
         }
         stage ('Docker Build') {
             steps {
-                  sh 'docker build -t mimizok/webapp1:latest .'
+                  sh 'docker build -t michraphee/webapp1:latest .'
             }
         }
         stage ('Trivy Image Scan') {
             steps {
-                sh 'docker run --rm aquasec/trivy:0.18.3 mimizok/webapp1:latest'
+                sh 'docker run --rm aquasec/trivy:0.18.3 mimizok/michraphee:latest'
             }
         }
-        stage ('Dcoker Build') {
+        stage ('Dcoker Push') {
             steps {
-                sh 'docker push mimizok/webapp1:latest'
+                sh 'docker push mimizok/michraphee:latest'
             }
         }
     }
+
+    // stage('Deploy') {
+    //     steps {
+    //         script {
+    //             dir('./k8s') {
+    //                 kubeconfig(credentialsId: '')
+    //             }
+    //         }
+    //     }
+    // }
 }
 
