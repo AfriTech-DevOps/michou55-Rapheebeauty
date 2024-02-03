@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Git Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/dev'], [name: '*/qa'], [name: '*/prod']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AfriTech-DevOps/michou55-Rapheebeauty']])
+                checkout scmGit(branches: [[name: '*/dev'], [name: '*/qa'], [name: '*/prod']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AfriTech-DevOps/michou55-Rapheebeauty.git']])
             }
         }
         stage('Sonarqube Analysis') {
