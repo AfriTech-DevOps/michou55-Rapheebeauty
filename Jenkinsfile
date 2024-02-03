@@ -18,14 +18,14 @@ pipeline {
         stage('Sonarqube Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=mimi -Dsonar.projectKey=mimi"
+                   sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=rapheeproject -Dsonar.projectName=rapheeproject"
                 }
             }
         }
         stage('Quality Gate') {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Secret text'
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         }
         stage ('Docker Build') {
             steps {
-                  sh 'docker build -t michraphee/webapp1:latest .'
+                  sh 'docker build -t mimizok/michraphee:latest .'
             }
         }
         stage ('Trivy Image Scan') {
