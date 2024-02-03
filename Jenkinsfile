@@ -2,6 +2,8 @@ pipeline {
     agent any 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('2ff349e1-7010-4200-99a8-ac17d7c56046')
+        SCANNER_HOME=tool 'sonar-scanner'
+        BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
     }
 
     stages {
