@@ -43,22 +43,34 @@ pipeline {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-        stage ('Docker Build') {
-            steps {
-                  sh 'docker build -t mimizok/michraphee:latest .'
+          stage('Docker Build'){
+            steps{
+                script{
+                   def imageTag = determineTargetEnvironment()
+                   sh "docker build -t mimizok/michraphee:${imageTag} ."
+                   echo "Image Build Successfully"
+                }
             }
         }
-        stage ('Trivy Image Scan') {
-            steps {
-                sh 'docker run --rm aquasec/trivy:0.18.3 mimizok/michraphee:latest'
+         stage('Trivy Image Scan'){
+            steps{
+                script{
+                    def imageTag = determineTargetEnvironment()
+                    sh "trivy image mimizok/michraphee:${imageTag}"
+                }
             }
         }
-        stage ('Dcoker Push') {
-            steps {
-                sh 'docker push mimizok/michraphee:latest'
+        stage('Docker push'){
+            steps{
+                script{
+                    def imageTag = determineTargetEnvironment()
+                    sh "docker push mimizok/michraphee:${imageTag}"
+                    echo "Push Image to Registry"
+                }
             }
         }
     }
+}
 
     // stage('Deploy') {
     //     steps {
@@ -69,5 +81,5 @@ pipeline {
     //         }
     //     }
     // }
-}
+
 
