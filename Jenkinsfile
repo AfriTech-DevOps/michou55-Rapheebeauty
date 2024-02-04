@@ -27,7 +27,7 @@ pipeline {
         stage('Trivy File Scan'){
             steps{
                 script{
-                    sh 'trivy fs . > trivy_result.txt'
+                    sh 'docker run --rm aquasec/trivy:0.18.3 fs . > trivy_result.txt'
                 }
             }
         }
