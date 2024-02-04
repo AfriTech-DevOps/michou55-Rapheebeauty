@@ -24,6 +24,13 @@ pipeline {
                 }
             }
         }
+        stage('Trivy File Scan'){
+            steps{
+                script{
+                    sh 'trivy fs . > trivy_result.txt'
+                }
+            }
+        }
         stage('Quality Gate') {
             steps {
                 script {
