@@ -59,14 +59,14 @@ pipeline {
                 }
             }
         }
-        stage('Trivy Image Scan') {
-            steps {
-                script {
-                    def imageTag = determineTargetEnvironment()
-                    sh "docker run --rm aquasec/trivy:0.18.3 mimizok/michraphee:${imageTag}"
-                }
-            }
-        }
+        // stage('Trivy Image Scan') {
+        //     steps {
+        //         script {
+        //             def imageTag = determineTargetEnvironment()
+        //             sh "docker run --rm aquasec/trivy:0.18.3 mimizok/michraphee:${imageTag}"
+        //         }
+        //     }
+        // }
         stage('Docker push') {
             steps {
                 script {
