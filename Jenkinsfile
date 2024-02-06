@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     def imageTag = determineTargetEnvironment()
-                    sh "trivy image mimizok/michraphee:${imageTag}"
+                    sh "docker run --rm aquasec/trivy:0.18.3 mimizok/michraphee:${imageTag}"
                 }
             }
         }
