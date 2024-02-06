@@ -72,14 +72,13 @@ pipeline {
     }
 }
 
-    // stage('Deploy') {
-    //     steps {
-    //         script {
-    //             dir('./k8s') {
-    //                 kubeconfig(credentialsId: '')
-    //             }
-    //         }
-    //     }
-    // }
-
-
+    def determineTargetEnvironment() {
+    def branchName = env.BRANCH_NAME
+    if (branchName == 'qa') {
+        return 'qa'
+    } else if (branchName == 'prod') {
+        return 'prod'
+    } else {
+        return 'dev'
+    }
+}
