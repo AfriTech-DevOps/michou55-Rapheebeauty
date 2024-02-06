@@ -1,6 +1,6 @@
 pipeline {
     agent any 
-    
+
     environment {
         DOCKERHUB_CREDENTIALS = credentials('2ff349e1-7010-4200-99a8-ac17d7c56046')
         SCANNER_HOME=tool 'sonar-scanner'
@@ -72,3 +72,14 @@ pipeline {
         }
     }
 }
+def determineTargetEnvironment() {
+    def branchName = env.BRANCH_NAME
+    if (branchName == 'qa') {
+        return 'qa'
+    } else if (branchName == 'prod') {
+        return 'prod'
+    } else {
+        return 'dev'
+    }
+}
+
